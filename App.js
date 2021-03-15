@@ -1,9 +1,10 @@
 /** @format */
 
 // global
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+// local
+import Home from "./src/pages/home";
 // aws
 import Amplify from "aws-amplify";
 import config from "./aws-exports";
@@ -11,9 +12,13 @@ Amplify.configure(config);
 
 export default function App() {
 	return (
+		// insert login entry sequence here in order to get to...
+		// the app
 		<View style={styles.container}>
-			<Text>Open up App.js to start working on your app!</Text>
-			<StatusBar style="auto" />
+			{/* insert header here */}
+			{/* insert page navigation here */}
+			<Home />
+			{/* insert footer here */}
 		</View>
 	);
 }
@@ -21,7 +26,7 @@ export default function App() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#fff",
+		backgroundColor: "#A8DADC",
 		alignItems: "center",
 		justifyContent: "center",
 	},
