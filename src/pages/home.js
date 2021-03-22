@@ -4,7 +4,8 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Modal, Text, Pressable } from "react-native";
 // local
-import { HomeButton } from "../components/buttons";
+import { HomeButton, CloseButton } from "../components/buttons";
+import MemoryEntry from "../screens/memoryentry";
 
 export default function Home() {
 	// data entry windows triggered by quick action buttons
@@ -15,38 +16,41 @@ export default function Home() {
 	};
 	return (
 		<View>
+			<Text style={styles.sectionHeading}>Quick Entry</Text>
 			<HomeButton title="Don't Forget!" action={() => homeButtonPressed("remember")} />
 			<Modal animationType="slide" transparent={true} visible={dataEntry !== null}>
 				<View style={styles.centeredView}>
 					<View style={styles.modalView}>
-						<Text style={styles.modalText}>Hello World!</Text>
-						<Pressable
-							style={[styles.button, styles.buttonClose]}
-							onPress={() => setDataEntry(null)}
-						>
-							<Text style={styles.textStyle}>Hide Modal</Text>
-						</Pressable>
+						<View style={styles.modalViewClose}>
+							<CloseButton action={() => setDataEntry(null)} />
+						</View>
+						<View style={styles.modalViewContent}>
+							{dataEntry === "remember" && <MemoryEntry />}
+						</View>
 					</View>
 				</View>
 			</Modal>
-			{/* {dataEntry === "remember" && <MemoryEntry />} */}
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
+	sectionHeading: {
+		fontWeight: "bold",
+		textTransform: "uppercase",
+		paddingBottom: 10,
+	},
 	centeredView: {
 		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
-		marginTop: 22,
+		backgroundColor: "rgba(50, 50, 50, 0.5)",
 	},
 	modalView: {
 		margin: 20,
 		backgroundColor: "white",
 		borderRadius: 20,
-		padding: 35,
-		alignItems: "center",
+		padding: 20,
 		shadowColor: "#000",
 		shadowOffset: {
 			width: 0,
@@ -56,24 +60,11 @@ const styles = StyleSheet.create({
 		shadowRadius: 4,
 		elevation: 5,
 	},
-	button: {
-		borderRadius: 20,
-		padding: 10,
-		elevation: 2,
+	modalViewClose: {
+		alignItems: "flex-end",
+		marginBottom: 20,
 	},
-	buttonOpen: {
-		backgroundColor: "#F194FF",
-	},
-	buttonClose: {
-		backgroundColor: "#2196F3",
-	},
-	textStyle: {
-		color: "white",
-		fontWeight: "bold",
-		textAlign: "center",
-	},
-	modalText: {
-		marginBottom: 15,
-		textAlign: "center",
+	modalViewContent: {
+		alignItems: "center",
 	},
 });
